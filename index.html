@@ -163,7 +163,6 @@
   }
   .btn-primary { background: var(--accent); color: var(--white); }
   .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
-  .btn-primary:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; transform: none; }
   .btn-secondary { background: var(--off); color: var(--text); border: 1.5px solid var(--border); }
   .btn-secondary:hover { background: var(--border); }
 
@@ -430,28 +429,24 @@ function updateBanner(state, msg) {
   const banner = document.getElementById("config-banner");
   const dot    = document.getElementById("status-dot");
   const status = document.getElementById("status-text");
-  const btn    = document.getElementById("submit-btn");
+
 
   if (state === "connected") {
     banner.className = "config-banner connected";
     banner.innerHTML = `<span class="config-icon">✓</span><span>Connected to Google Sheets.</span><button class="config-btn" style="background:#166534" onclick="disconnectSheet()">Disconnect</button>`;
     dot.className = "status-dot connected";
     status.textContent = msg || "Connected";
-    btn.disabled = false;
   } else if (state === "error") {
     banner.className = "config-banner error";
     banner.innerHTML = `<span class="config-icon">✗</span><span>${msg || "Connection failed."}</span><button class="config-btn" onclick="showConnectForm()">Reconnect</button>`;
     dot.className = "status-dot error";
     status.textContent = "Connection error";
-    btn.disabled = true;
   } else if (state === "connecting") {
     dot.className = "status-dot loading";
     status.textContent = "Connecting…";
-    btn.disabled = true;
   } else {
     dot.className = "status-dot";
     status.textContent = "Not connected";
-    btn.disabled = true;
   }
 }
 
